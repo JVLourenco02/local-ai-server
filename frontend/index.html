@@ -1,0 +1,55 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#111827">
+    <title>Local AI Server</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <script src="/static/script.js" defer></script>
+</head>
+<body>
+    <main class="app">
+        <header class="header">
+            <div class="logo">AI</div>
+            <div>
+                <h1>Local AI Server</h1>
+                <p>Inteligência artificial executada localmente</p>
+            </div>
+            <span class="status">
+                <span class="status-dot"></span>
+                Local
+            </span>
+        </header>
+
+        <section id="messages" class="messages" aria-live="polite">
+            <div class="welcome">
+                <div class="welcome-icon">✦</div>
+                <h2>Como posso ajudar?</h2>
+                <p>Envie uma pergunta para conversar com o Llama 3.2.</p>
+            </div>
+        </section>
+
+        <form id="chat-form" class="chat-form">
+            <label for="message-input" class="sr-only">
+                Sua mensagem
+            </label>
+            <textarea
+                id="message-input"
+                placeholder="Digite sua mensagem..."
+                rows="1"
+                maxlength="4000"
+                required
+            ></textarea>
+            <button id="send-button" type="submit" aria-label="Enviar mensagem">
+                Enviar ↑
+            </button>
+        </form>
+
+        <footer>
+            Executado no seu próprio servidor · Llama 3.2
+        </footer>
+    </main>
+</body>
+</html>
