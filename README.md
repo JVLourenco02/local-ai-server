@@ -159,3 +159,34 @@ não uma medição padronizada de desempenho.
 - Ollama
 - Llama 3.2
 - HTML, CSS e JavaScript
+
+
+## Monitoramento de recursos durante a inferência
+
+Foi realizada uma coleta pontual de recursos enquanto o modelo Llama 3.2 era executado localmente no Lenovo ThinkCentre M720q Tiny.
+
+### Resultado observado
+
+| Métrica | Resultado |
+|---|---:|
+| Processo monitorado | `llama-server` |
+| Uso de CPU no instante da coleta | 307% |
+| Memória residente (RSS) | 2.527.908 KiB (aprox. 2,41 GiB) |
+| Uso de memória reportado pelo Linux | 16,0% |
+| Memória virtual (VSZ) | 3.225.424 KiB (aprox. 3,08 GiB) |
+
+### Método
+
+Os dados foram coletados com o comando `ps`, durante a geração de uma resposta do modelo:
+
+```bash
+ps -C llama-server -o pid,comm,%cpu,%mem,rss,vsz
+```
+
+### Observações
+
+Os valores representam uma amostra pontual e podem variar conforme o modelo, o tamanho do prompt, o contexto e a etapa de geração. O RSS representa a memória residente do processo, não apenas os pesos do modelo. O VSZ representa memória virtual e não deve ser interpretado como consumo de RAM física.
+
+O uso de CPU acima de 100% ocorre porque o Linux pode contabilizar o trabalho de múltiplos núcleos para um mesmo processo.
+
+Esses resultados são preliminares e não substituem testes repetidos e controlados de desempenho.
