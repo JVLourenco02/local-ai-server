@@ -115,7 +115,7 @@ Foi realizado um segundo teste utilizando a interface web do Local AI Server. O 
 
 **Comportamento da interface:** enquanto o modelo processava a solicitação, a página exibiu a mensagem "O Llama 3.2 está preparando uma resposta...". Após a conclusão do processamento, a resposta foi apresentada integralmente.
 
-**Observação técnica:** a API utiliza atualmente o parâmetro `stream: false`, portanto a resposta é exibida somente após a geração completa do texto, em vez de aparecer gradualmente.
+**Observação técnica:** este teste foi realizado antes da implementação do streaming. Atualmente, a interface web recebe e exibe a resposta gradualmente durante a geração do texto.
 
 Este resultado é uma medição inicial, realizada manualmente. O tempo pode variar conforme o tamanho da pergunta, a extensão da resposta e as condições de execução.
 
@@ -190,3 +190,39 @@ Os valores representam uma amostra pontual e podem variar conforme o modelo, o t
 O uso de CPU acima de 100% ocorre porque o Linux pode contabilizar o trabalho de múltiplos núcleos para um mesmo processo.
 
 Esses resultados são preliminares e não substituem testes repetidos e controlados de desempenho.
+
+
+### Benchmark automatizado com Ollama
+
+Foi desenvolvido um script em Python para medir automaticamente o desempenho do modelo Llama 3.2 por meio da API do Ollama. O script registra os resultados em um arquivo JSONL local, permitindo manter um histórico das execuções.
+
+**Configuração do teste:**
+- **Modelo:** Llama 3.2
+- **Prompt:** explicação breve sobre inteligência artificial local
+- **Limite de geração:** 80 tokens
+- **Temperatura:** 0
+- **Método:** chamada HTTP à API do Ollama, sem streaming
+
+#### Resultados
+
+Foram realizadas três execuções com o mesmo prompt e a mesma configuração.
+
+| Métrica | Modelo inicialmente descarregado | Modelo já carregado (média de 2 testes) |
+|---|---:|---:|
+| Tempo total de resposta | 7,361 s | 3,517 s |
+| Tempo de carregamento | 3,330 s | 0,001 s |
+| Tempo de avaliação do prompt | 0,603 s | 0,087 s |
+| Tokens gerados | 50 | 50 |
+| Velocidade de geração | 14,74 tokens/s | 14,73 tokens/s |
+
+#### Análise
+
+Nos testes realizados com o modelo já carregado na memória, o tempo médio de resposta foi de aproximadamente 3,52 segundos. A velocidade de geração permaneceu praticamente constante, em torno de 14,73 tokens por segundo.
+
+A primeira execução levou mais tempo devido ao carregamento do modelo. Os resultados demonstram a importância de diferenciar o tempo de inicialização do tempo necessário para processar uma solicitação.
+
+**Limitações:** os resultados são preliminares e representam apenas um prompt específico, com uma resposta de 50 tokens. Mais testes são necessários para avaliar diferentes tamanhos de entrada e saída e obter uma estimativa mais robusta do desempenho.
+
+**Arquivo do benchmark:** `benchmarks/benchmark.py`.
+
+Os resultados individuais são armazenados localmente em `benchmarks/results.jsonl`, que está excluído do Git por meio do `.gitignore`.
