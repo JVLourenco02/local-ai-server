@@ -15,3 +15,6 @@ __pycache__/
 # Configurações locais de editores
 .vscode/
 .idea/
+
+# Resultados locais dos benchmarks
+benchmarks/results.jsonl
