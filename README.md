@@ -8,7 +8,6 @@ Construir um servidor de IA local utilizando Linux, Python, FastAPI e Ollama, pe
 
 ## Hardware
 
-- **Computador:** Lenovo ThinkCentre M720q Tiny
 - **Processador:** Intel Core i5-9400T
 - **Memória RAM:** 16 GB DDR4
 - **Armazenamento:** SSD NVMe de 256 GB
@@ -77,7 +76,6 @@ Foi realizado um teste preliminar para comparar o tempo de resposta do modelo Ll
 
 ### Ambiente de teste
 
-- **Servidor:** Lenovo ThinkCentre M720q Tiny
 - **Processador:** Intel Core i5-9400T
 - **Memória RAM:** 16 GB DDR4
 - **GPU:** Intel UHD Graphics 630 integrada
@@ -163,7 +161,7 @@ não uma medição padronizada de desempenho.
 
 ## Monitoramento de recursos durante a inferência
 
-Foi realizada uma coleta pontual de recursos enquanto o modelo Llama 3.2 era executado localmente no Lenovo ThinkCentre M720q Tiny.
+Foi realizada uma coleta pontual de recursos enquanto o modelo Llama 3.2 era executado localmente.
 
 ### Resultado observado
 
