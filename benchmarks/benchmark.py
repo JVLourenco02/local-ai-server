@@ -22,6 +22,10 @@ def main():
         "model": MODEL,
         "prompt": PROMPT,
         "stream": False,
+        "options": {
+            "num_predict": 80,
+            "temperature": 0,
+        },
     }
 
     start_time = time.perf_counter()
@@ -43,6 +47,7 @@ def main():
     response_text = result.get("response", "")
     eval_count = result.get("eval_count", 0)
     eval_duration = result.get("eval_duration", 0)
+    prompt_eval_duration = result.get("prompt_eval_duration", 0)
     load_duration = result.get("load_duration", 0)
     total_duration = result.get("total_duration", 0)
 
@@ -59,6 +64,7 @@ def main():
         "response_seconds": round(elapsed_seconds, 3),
         "ollama_total_seconds": round(total_duration / 1_000_000_000, 3),
         "load_seconds": round(load_duration / 1_000_000_000, 3),
+        "prompt_eval_seconds": round(prompt_eval_duration / 1_000_000_000, 3),
         "prompt_tokens": result.get("prompt_eval_count", 0),
         "generated_tokens": eval_count,
         "generation_tokens_per_second": round(tokens_per_second, 2),
