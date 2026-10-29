@@ -19,6 +19,7 @@ FRONTEND_DIR = BASE_DIR / "frontend"
 
 OLLAMA_URL = "http://127.0.0.1:11434/api/generate"
 MODEL = "llama3.2"
+BENCHMARK_FILE = BASE_DIR / "benchmarks" / "results.jsonl"
 
 app.mount(
     "/static",
@@ -40,6 +41,9 @@ class ChatResponse(BaseModel):
 async def home():
     return FileResponse(FRONTEND_DIR / "index.html")
 
+@app.get("/benchmark", include_in_schema=False)
+async def benchmark_page():
+    return FileResponse(FRONTEND_DIR / "benchmark.html")
 
 @app.get("/api", include_in_schema=False)
 async def api_home():
@@ -120,3 +124,24 @@ async def chat(request: ChatRequest):
         media_type="application/x-ndjson",
         headers={"Cache-Control": "no-cache"},
     )
+
+@app.get("/api/benchmark")
+async def get_benchmark_results():
+    if not BENCHMARK_FILE.exists():
+        return {"results": []}
+
+    results = []
+
+    try:
+        with BENCHMARK_FILE.open("r", encoding="utf-8") as file:
+            for line in file:
+                if line.strip():
+                    results.append(json.loads(line))
+
+    except (OSError, json.JSONDecodeError):
+        raise HTTPException(
+            status_code=500,
+            detail="Não foi possível ler os resultados do benchmark.",
+        )
+
+    return {"results": results}

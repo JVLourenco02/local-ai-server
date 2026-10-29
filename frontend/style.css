@@ -74,6 +74,46 @@ footer {
     background: #22c55e;
 }
 
+.header-actions {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 18px;
+    flex-shrink: 0;
+}
+
+.benchmark-link {
+    display: inline-block;
+    padding: 9px 13px;
+    border: 1px solid #334155;
+    border-radius: 10px;
+    color: #93c5fd;
+    background: #111827;
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: background 0.2s, border-color 0.2s;
+}
+
+.benchmark-link:visited {
+    color: #93c5fd;
+}
+
+.benchmark-link:hover {
+    background: #1e293b;
+    border-color: #3b82f6;
+    color: #bfdbfe;
+}
+
+.benchmark-link:hover {
+    background: #1e293b;
+    border-color: #3b82f6;
+    color: #bfdbfe;
+}
+
+
 .messages {
     flex: 1;
     display: flex;
@@ -215,5 +255,16 @@ footer {
 
     button {
         padding: 12px;
+    }
+
+    .header-actions {
+    gap: 8px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    }
+
+    .benchmark-link {
+        padding: 8px;
+        font-size: 12px;
     }
 }
